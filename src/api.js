@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/api"; // Change if needed
+// const API_URL = "http://localhost:3000/api"; // Local Host
+const API_URL = "https://marketplace-application-backend-e6bm.onrender.com/"; //deploy
 
 // Product APIs
 export const getProducts = () =>
