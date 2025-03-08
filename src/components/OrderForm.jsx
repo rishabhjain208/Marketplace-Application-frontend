@@ -61,7 +61,7 @@ const OrderForm = ({ products, fetchOrders }) => {
       />
       <button
         type="submit"
-        className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-200"
+        className="bg-green-500 text-white px-4 py-2 rounded-lg hover:cursor-pointer hover:bg-green-600 transition duration-200"
       >
         Place Order
       </button>

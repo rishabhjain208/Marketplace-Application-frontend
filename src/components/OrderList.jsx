@@ -108,7 +108,7 @@ const OrderList = () => {
               </ul>
 
               <button
-                className="bg-red-500 text-white px-4 py-2 mt-3 rounded-lg hover:bg-red-600 transition duration-200"
+                className="bg-red-500 text-white px-4 py-2 mt-3 rounded-lg hover:cursor-pointer  hover:bg-red-600 transition duration-200"
                 onClick={() => setDeleteOrderId(order._id)}
               >
                 Delete
@@ -131,13 +131,13 @@ const OrderList = () => {
 
             <div className="mt-4 flex justify-end space-x-2">
               <button
-                className="bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400 transition"
+                className="bg-gray-300 px-4 py-2 rounded-lg hover:cursor-pointer hover:bg-gray-400 transition"
                 onClick={() => setDeleteOrderId(null)}
               >
                 Cancel
               </button>
               <button
-                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:cursor-pointer hover:bg-red-600 transition"
                 onClick={handleDelete}
               >
                 Delete
