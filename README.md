@@ -1,4 +1,4 @@
-# 🛍️ Product Management Dashboard
+# 🛍️ Marketplace Application
 
 A **React-based product management dashboard** that allows users to view, search, filter, edit, and delete products. It includes features like **search by name, filter by category, price range, and a confirmation modal for deletions**.
 
