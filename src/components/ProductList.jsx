@@ -9,6 +9,11 @@ const ProductList = ({ onEdit }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
 
+  // Search & Filter States
+  const [searchTerm, setSearchTerm] = useState("");
+  const [priceRange, setPriceRange] = useState({ min: "", max: "" });
+  const [category, setCategory] = useState("");
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -43,14 +48,66 @@ const ProductList = ({ onEdit }) => {
     }
   };
 
+  // Filtering logic
+  const filteredProducts = products.filter((product) => {
+    const matchesName = product.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const matchesCategory = category
+      ? product.category.toLowerCase() === category.toLowerCase()
+      : true;
+    const matchesPrice =
+      (priceRange.min === "" || product.price >= Number(priceRange.min)) &&
+      (priceRange.max === "" || product.price <= Number(priceRange.max));
+
+    return matchesName && matchesCategory && matchesPrice;
+  });
+
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4 text-gray-800">Products</h2>
-      {products.length === 0 ? (
-        <p className="text-gray-600">No products found.</p>
+
+      {/* Search & Filter Section */}
+      <div className="mb-4 flex flex-wrap gap-4">
+        <input
+          type="text"
+          placeholder="Search by name..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="border p-2 rounded w-full md:w-1/3"
+        />
+        <input
+          type="number"
+          placeholder="Min Price"
+          value={priceRange.min}
+          onChange={(e) =>
+            setPriceRange({ ...priceRange, min: e.target.value })
+          }
+          className="border p-2 rounded w-1/4"
+        />
+        <input
+          type="number"
+          placeholder="Max Price"
+          value={priceRange.max}
+          onChange={(e) =>
+            setPriceRange({ ...priceRange, max: e.target.value })
+          }
+          className="border p-2 rounded w-1/4"
+        />
+        {/* <input
+          type="text"
+          placeholder="Filter by Category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="border p-2 rounded w-1/3"
+        /> */}
+      </div>
+
+      {filteredProducts.length === 0 ? (
+        <p className="text-gray-600">No matching products found.</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((product) => (
+          {filteredProducts.map((product) => (
             <div
               key={product._id}
               className="p-6 border rounded-lg shadow-md bg-white hover:shadow-lg transition-shadow"
@@ -60,15 +117,18 @@ const ProductList = ({ onEdit }) => {
               </h3>
               <p className="text-gray-600">{product.description}</p>
               <p className="font-bold text-green-600">₹{product.price}</p>
+              <p className="text-gray-500">
+                Category: {product.category || "N/A"}
+              </p>
               <div className="mt-3 flex gap-3">
                 <button
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg hover:cursor-pointer transition"
+                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition"
                   onClick={() => onEdit(product)}
                 >
                   Edit
                 </button>
                 <button
-                  className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg hover:cursor-pointer transition"
+                  className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition"
                   onClick={() => openModal(product)}
                 >
                   Delete
@@ -92,13 +152,13 @@ const ProductList = ({ onEdit }) => {
         </p>
         <div className="mt-4 flex gap-4">
           <button
-            className="bg-gray-400 hover:bg-gray-500 text-white hover:cursor-pointer px-4 py-2 rounded-lg transition"
+            className="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded-lg transition"
             onClick={closeModal}
           >
             Cancel
           </button>
           <button
-            className="bg-red-500 hover:bg-red-600 text-white hover:cursor-pointer px-4 py-2 rounded-lg transition"
+            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition"
             onClick={confirmDelete}
           >
             Delete

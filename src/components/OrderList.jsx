@@ -97,7 +97,7 @@ const OrderList = () => {
                             {product.name || "No Name"}
                           </span>{" "}
                           - {product.description || "No Description"} <br /> ₹
-                          {item.price || 0} x {item.quantity}
+                          {product.price || 0} x {item.quantity}
                         </>
                       ) : (
                         <p className="text-red-500">Product details missing!</p>
@@ -108,7 +108,7 @@ const OrderList = () => {
               </ul>
 
               <button
-                className="bg-red-500 text-white px-4 py-2 mt-3 rounded-lg hover:cursor-pointer  hover:bg-red-600 transition duration-200"
+                className="bg-red-500 text-white px-4 py-2 mt-3 rounded-lg hover:bg-red-600 transition duration-200"
                 onClick={() => setDeleteOrderId(order._id)}
               >
                 Delete
