@@ -117,9 +117,9 @@ const ProductList = ({ onEdit }) => {
               </h3>
               <p className="text-gray-600">{product.description}</p>
               <p className="font-bold text-green-600">₹{product.price}</p>
-              <p className="text-gray-500">
+              {/* <p className="text-gray-500">
                 Category: {product.category || "N/A"}
-              </p>
+              </p> */}
               <div className="mt-3 flex gap-3">
                 <button
                   className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition"
